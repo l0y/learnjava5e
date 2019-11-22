@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+	<!-- Our simple, servlet version of "Hello, World!" -->
+    <servlet>
+        <servlet-name>helloclient1</servlet-name>
+        <servlet-class>ch12.HelloClient</servlet-class>
+    </servlet>
+
+	<!-- Remember if combining annotations with this web.xml file, the
+		 url-pattern you specify here must be unique. (E.g. it cannot
+	     be the same as the path you used in the annotation.) -->
+    <servlet-mapping>
+        <servlet-name>helloclient1</servlet-name>
+        <url-pattern>/hellox</url-pattern>
+    </servlet-mapping>
+
+	<!-- A quick echo of any parameters passed to the servlet -->
+    <servlet>
+        <servlet-name>showparameters1</servlet-name>
+        <servlet-class>ch12.ShowParameters</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>showparameters1</servlet-name>
+        <url-pattern>/showparametersx</url-pattern>
+    </servlet-mapping>
+
+	<!-- Display current session values and allow the user to set new ones -->
+    <servlet>
+        <servlet-name>showsession1</servlet-name>
+        <servlet-class>ch12.ShowSession</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>showsession1</servlet-name>
+        <url-pattern>/showsessionx</url-pattern>
+    </servlet-mapping>
+
+</web-app>
