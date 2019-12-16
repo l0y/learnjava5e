@@ -1,4 +1,4 @@
-package ch07;
+package ch05;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import static java.awt.Color.*;
 
 /**
- * Our player class. A physicist has an apple that they can throw in addition
+ * Our player class. A physicist can aim where to toss an apple in addition
  * to implementing the basic methods for GamePiece. We can also set a custom
  * color in case you build on the game and allow multiple physicists to be
  * on the screen at the same time.
@@ -15,7 +15,6 @@ import static java.awt.Color.*;
 public class Physicist implements GamePiece {
     Color color;
     int centerX, centerY;
-    Apple aimingApple;
     float aimingAngle;
     float aimingForce;
     Field field;
@@ -42,7 +41,6 @@ public class Physicist implements GamePiece {
         setColor(color);
         aimingAngle = 90.0f;
         aimingForce = 50.0f;
-        getNewApple();
     }
 
     public void setAimingAngle(Float angle) {
@@ -103,55 +101,19 @@ public class Physicist implements GamePiece {
         this.field = field;
     }
 
-    /**
-     * Take the current apple away from the physicist. Returns the apple for
-     * use in animating on the field. Note that if there is no current apple being
-     * aimed, null is returned.
-     *
-     * @return the current apple (if any) being aimed
-     */
-    public Apple takeApple() {
-        Apple myApple = aimingApple;
-        aimingApple = null;
-        return myApple;
-    }
-
-    /**
-     * Get a new apple ready if we need one. Do not discard an existing apple.
-     */
-    public void getNewApple() {
-        // Don't drop the current apple if we already have one!
-        if (aimingApple == null) {
-            aimingApple = new Apple(this);
-        }
-    }
-
     @Override
     public void draw(Graphics g) {
         // Make sure our physicist is the right color, then draw the semi-circle and box
         g.setColor(color);
         g.fillArc(x, y, Field.PHYSICIST_SIZE_IN_PIXELS, Field.PHYSICIST_SIZE_IN_PIXELS, 0, 180);
         g.fillRect(x, centerY, Field.PHYSICIST_SIZE_IN_PIXELS, Field.PHYSICIST_SIZE_IN_PIXELS);
-
-        // Do we have an apple to draw as well?
-        if (aimingApple != null) {
-            // Yes. Position the center of the apple on the edge of our semi-circle.
-            // Use the current aimingAngle to determine where on the edge.
-            double angleInRadians = Math.toRadians(aimingAngle);
-            double radius = Field.PHYSICIST_SIZE_IN_PIXELS / 2.0;
-            int aimingX = centerX + (int)(Math.cos(angleInRadians) * radius);
-            int aimingY = centerY - (int)(Math.sin(angleInRadians) * radius);
-            aimingApple.setPosition(aimingX, aimingY);
-            aimingApple.draw(g);
-        }
     }
 
     @Override
     public boolean isTouching(GamePiece otherPiece) {
-        if (this == otherPiece) {
-            // By definition we don't collide with ourselves
-            return false;
-        }
-        return GameUtilities.doBoxesIntersect(boundingBox, otherPiece.getBoundingBox());
+		// We don't really have any collisions to detect yet, so just return "no".
+		// As we fill out all of the game pieces, we'll come back to this method
+		// and provide a more useful response.
+		return false;
     }
 }

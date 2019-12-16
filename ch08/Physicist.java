@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import static java.awt.Color.*;
 
 /**
- * Our player class. A physicist has an apple that she can throw in addition
+ * Our player class. A physicist has an apple that they can throw in addition
  * to implementing the basic methods for GamePiece. We can also set a custom
  * color in case you build on the game and allow multiple physicists to be
  * on the screen at the same time.

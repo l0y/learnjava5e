@@ -1,13 +1,9 @@
 package ch07;
 
 import javax.swing.*;
-import javax.swing.Timer;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.*;
-import java.util.List;
 
 /**
  * The playing field for our game. Now we can setup some constants for
