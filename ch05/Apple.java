@@ -123,7 +123,7 @@ public class Apple implements GamePiece {
         double xdiff = x - other.getPositionX();
         double ydiff = y - other.getPositionY();
         double distance = Math.sqrt(xdiff * xdiff + ydiff * ydiff);
-        if (distance < diameter) {
+        if (distance < diameter / 2 + other.diameter / 2) {
             return true;
         } else {
             return false;

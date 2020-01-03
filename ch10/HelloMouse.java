@@ -20,7 +20,7 @@ public class HelloMouse extends JFrame implements MouseListener {
         super("MouseEvent Demo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
-        setSize( 300, 300 );
+        setSize( 300, 100 );
 
         label = new JLabel("Hello, Mouse!", JLabel.CENTER );
         label.setOpaque(true);

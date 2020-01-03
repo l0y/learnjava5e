@@ -15,7 +15,7 @@ public class ModalDemo extends JFrame implements ActionListener {
     JLabel modalLabel;
 
     public ModalDemo() {
-        super( "ActionEvent Counter Demo" );
+        super( "Modal Dialog Demo" );
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
         setSize( 300, 180 );
