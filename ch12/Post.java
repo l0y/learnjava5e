@@ -16,7 +16,8 @@ import javax.swing.*;
  * example that can serve (ha!) as the receiving (server) side.
  */
 public class Post extends JPanel implements ActionListener {
-  JTextField nameField, passwordField;
+  JTextField nameField;
+  JPasswordField passwordField;
   String postURL;
 
   GridBagConstraints constraints = new GridBagConstraints(  );
@@ -28,9 +29,9 @@ public class Post extends JPanel implements ActionListener {
 
   public Post( String postURL ) {
 	  
-	this.postURL = postURL;  
+    this.postURL = postURL;  
 	  
-	setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 5));
+    setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 5));
     JButton postButton = new JButton("Post");
     postButton.addActionListener( this );
     setLayout( new GridBagLayout(  ) );
@@ -50,15 +51,16 @@ public class Post extends JPanel implements ActionListener {
   }
 
   protected void postData(  ) {
-    StringBuffer sb = new StringBuffer(  );
-		try {
-	    sb.append( URLEncoder.encode("Name", "UTF-8") + "=" );
-	    sb.append( URLEncoder.encode(nameField.getText(  ), "UTF-8") );
-	    sb.append( "&" + URLEncoder.encode("Password", "UTF-8") + "=" );
-	    sb.append( URLEncoder.encode(passwordField.getText(  ), "UTF-8") );
-		} catch (UnsupportedEncodingException uee) {
-	  	System.out.println(uee);
-		}
+    StringBuilder sb = new StringBuilder();
+    String pw = new String(passwordField.getPassword());
+    try {
+      sb.append( URLEncoder.encode("Name", "UTF-8") + "=" );
+      sb.append( URLEncoder.encode(nameField.getText(), "UTF-8") );
+      sb.append( "&" + URLEncoder.encode("Password", "UTF-8") + "=" );
+      sb.append( URLEncoder.encode(pw, "UTF-8") );
+    } catch (UnsupportedEncodingException uee) {
+      System.out.println(uee);
+    }
     String formData = sb.toString(  );
 
     try {
@@ -75,13 +77,14 @@ public class Post extends JPanel implements ActionListener {
       pout.print( formData );
       pout.flush(  );
 
-      // read results...
-      if ( urlcon.getResponseCode(  ) != HttpURLConnection.HTTP_OK )
+      // Did the post succeed?
+      if ( urlcon.getResponseCode() == HttpURLConnection.HTTP_OK )
         System.out.println("Posted ok!");
       else {
         System.out.println("Bad post...");
         return;
       }
+      // Hooray! Go ahead and read the results...
       //InputStream in = urlcon.getInputStream(  );
       // ...
 
@@ -93,9 +96,14 @@ public class Post extends JPanel implements ActionListener {
   }
 
   public static void main( String [] args ) {
+    if (args.length != 1) {
+      System.err.println("Must specify URL on command line. Exiting.");
+      System.exit(1);
+    }
     JFrame frame = new JFrame("SimplePost");
-    frame.add( new Post( args[0] ), "Center" );
-    frame.pack(  );
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.add( new Post(args[0]), "Center" );
+    frame.pack();
     frame.setVisible(true);
   }
 }
