@@ -12,9 +12,9 @@ public class Apple implements GamePiece {
     float mass;
     float diameter = 1.0f;
     int x, y;
-	int size;
-	
-	// Setup some size constants
+    int size;
+
+    // Setup some size constants
     public static final int SMALL = 0;
     public static final int MEDIUM = 1;
     public static final int LARGE = 2;
@@ -116,14 +116,18 @@ public class Apple implements GamePiece {
         g.fillOval(x, y, scaledLength, scaledLength);
     }
 
-	/**
-	 * Determine whether or not this apple is touching another piece.
-	 */
+    /**
+     * Determine whether or not this apple is touching another piece.
+     */
     public boolean isTouching(GamePiece other) {
         double xdiff = x - other.getPositionX();
         double ydiff = y - other.getPositionY();
         double distance = Math.sqrt(xdiff * xdiff + ydiff * ydiff);
-        if (distance < diameter / 2 + other.diameter / 2) {
+        // For now, we can only really collide with other apples.
+        // Just cheat a little and assume the other piece is in fact
+        // an apple, and an apple with the same diameter. We'll fix
+        // this as we fill out the other game pieces in later chapters.
+        if (distance < diameter) {
             return true;
         } else {
             return false;
